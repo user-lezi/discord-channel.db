@@ -1,4 +1,5 @@
-import { Client, GatewayIntentBits } from 'discord.js';
+import { Client, GatewayIntentBits } from "discord.js";
+require("dotenv").config();
 
 let client = new Client({
   intents: [
@@ -8,12 +9,8 @@ let client = new Client({
   ],
 });
 
-let cat = "1263827193776177269";
-
-
-
 client.on("ready", async () => {
-  
+  console.log("Bot Online!!");
 });
 
 client.login(process.env.token!);

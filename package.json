@@ -1,11 +1,11 @@
 {
   "name": "discord-channel.db",
-  "version": "0.0.1",
-  "description": "Database in discord channels?",
+  "version": "1.0.0",
+  "description": "Key-value Database in discord channels?",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "prePublish": "prettier src -w && npm run build",
+    "build": "prettier src -w && tsc",
     "test": "npm run build && node dist/__test__/index.js"
   },
   "keywords": [
@@ -16,11 +16,12 @@
   "author": "lezii",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^20.14.1",
-    "prettier": "^3.3.1",
-    "typescript": "^5.4.5"
+    "@types/node": "^20.17.6",
+    "dotenv": "^16.4.5",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
   },
   "dependencies": {
-    "discord.js": "^14.15.3"
+    "discord.js": "^14.16.3"
   }
 }

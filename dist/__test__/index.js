@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
+require("dotenv").config();
 let client = new discord_js_1.Client({
     intents: [
         discord_js_1.GatewayIntentBits.Guilds,
@@ -8,8 +9,8 @@ let client = new discord_js_1.Client({
         discord_js_1.GatewayIntentBits.MessageContent,
     ],
 });
-let cat = "1263827193776177269";
 client.on("ready", async () => {
+    console.log("Bot Online!!");
 });
 client.login(process.env.token);
 //# sourceMappingURL=index.js.map

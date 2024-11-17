@@ -1,8 +1,4 @@
 src
 dist/__test__
 tsconfig.json
-\.replit
-replit.nix
-\.cache
-\.git
-\.config
+.*
