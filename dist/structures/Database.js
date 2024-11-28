@@ -4,6 +4,7 @@ exports.Database = void 0;
 const discord_js_1 = require("discord.js");
 const Error_1 = require("./Error");
 const DatabaseTable_1 = require("./DatabaseTable");
+const TableNameRegex = /^[a-z0-9]+$/;
 class Database {
     options;
     #isConnected = false;
@@ -51,6 +52,8 @@ class Database {
             const tableName = this.tableNames[i];
             if (typeof tableName !== "string")
                 Error_1.DatabaseError.InvalidType(`table[${i}]`, "string", tableName);
+            if (!TableNameRegex.test(tableName))
+                Error_1.DatabaseError.InvalidTableName(tableName);
             let tableChnl = this.#category.children.cache.find((x) => x.name == tableName);
             if (!tableChnl) {
                 console.log(`Creating channel for table [${tableName}]`);

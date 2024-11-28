@@ -26,6 +26,9 @@ export class DatabaseError extends Error {
   public static InvalidTable(value: string) {
     throw new this(`Invalid table "${value}"`);
   }
+  public static InvalidTableName(value: string) {
+    throw new this(`Invalid/Unallowed table name: "${value}"`);
+  }
 }
 
 export function ThrowConnectionError(db: Database<string>) {

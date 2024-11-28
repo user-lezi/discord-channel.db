@@ -22,7 +22,7 @@ export interface IBulkDeleteOptions<T> {
   name: string;
   table?: T;
 }
-
+const TableNameRegex = /^[a-z0-9]+$/;
 export class Database<Tables extends string = "main"> {
   public options: IDatabaseOptions & { tables: Tables[] };
   #isConnected = false;
@@ -80,6 +80,8 @@ export class Database<Tables extends string = "main"> {
       const tableName = this.tableNames[i];
       if (typeof tableName !== "string")
         DatabaseError.InvalidType(`table[${i}]`, "string", tableName);
+      if (!TableNameRegex.test(tableName))
+        DatabaseError.InvalidTableName(tableName);
 
       let tableChnl = this.#category.children.cache.find(
         (x) => x.name == tableName,
