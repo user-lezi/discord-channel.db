@@ -80,7 +80,7 @@ export class DatabaseTable {
         });
         this.#threads.set(thread.name, thread);
       }),
-    );
+    ).then(() => {});
   }
 
   public async write(identifier: string, value: any) {
@@ -109,10 +109,10 @@ export class DatabaseTable {
   }
 
   public all<T = unknown>() {
-    return this.#cache.map((v) => this.get<T>(v.identifier));
+    return this.#cache.map((v) => this.get<T>(v.identifier)!);
   }
   public allMap<T = unknown>() {
-    return this.#cache.mapValues((v) => this.get<T>(v.identifier));
+    return this.#cache.mapValues((v) => this.get<T>(v.identifier)!);
   }
 
   public toJSON() {

@@ -67,7 +67,7 @@ class Database {
         return (this.#isConnected = true);
     }
     fetch() {
-        return Promise.all(this.#tables.map((table) => table.fetchAll()));
+        return Promise.all(this.#tables.map((table) => table.fetchAll())).then(() => { });
     }
     get size() {
         return this.#tables.reduce((total, table) => total + table.size, 0);

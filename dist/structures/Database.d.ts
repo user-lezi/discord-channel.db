@@ -25,7 +25,7 @@ export declare class Database<Tables extends string = "main"> {
     get tableNames(): Tables[];
     isConnected(): boolean;
     connect(fetchValues?: boolean): Promise<boolean>;
-    fetch(): Promise<void[][]>;
+    fetch(): Promise<void>;
     get size(): number;
     get sizeMap(): Collection<Tables, number>;
     wipe(): Promise<boolean>;
@@ -39,30 +39,30 @@ export declare class Database<Tables extends string = "main"> {
     } | null;
     delete(identifier: string, tableName?: Tables): Promise<boolean>;
     bulkDelete(...args: IBulkDeleteOptions<Tables>[]): Promise<boolean[]>;
-    allFromTable<T = unknown>(tableName: Tables): ({
+    allFromTable<T = unknown>(tableName: Tables): {
         thread: import("discord.js").ThreadChannel<boolean>;
         value: T;
         identifier: string;
         type: string;
-    } | null)[];
-    all<T = unknown>(): Collection<Tables, ({
+    }[];
+    all<T = unknown>(): Collection<Tables, {
         thread: import("discord.js").ThreadChannel<boolean>;
         value: T;
         identifier: string;
         type: string;
-    } | null)[]>;
+    }[]>;
     allFromTableMap<T = unknown>(tableName: Tables): Collection<string, {
         thread: import("discord.js").ThreadChannel<boolean>;
         value: T;
         identifier: string;
         type: string;
-    } | null>;
+    }>;
     allMap<T = unknown>(): Collection<Tables, Collection<string, {
         thread: import("discord.js").ThreadChannel<boolean>;
         value: T;
         identifier: string;
         type: string;
-    } | null>>;
+    }>>;
     toJSON(): Record<Tables, Record<string, {
         value: any;
         type: string;

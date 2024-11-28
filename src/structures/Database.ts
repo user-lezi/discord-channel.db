@@ -99,7 +99,9 @@ export class Database<Tables extends string = "main"> {
   }
 
   public fetch() {
-    return Promise.all(this.#tables.map((table) => table.fetchAll()));
+    return Promise.all(this.#tables.map((table) => table.fetchAll())).then(
+      () => {},
+    );
   }
 
   /* Database Functions */

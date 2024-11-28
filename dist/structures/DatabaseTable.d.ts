@@ -11,7 +11,7 @@ export declare class DatabaseTable {
     get channel(): ForumChannel;
     get cache(): Collection<string, IValue<any>>;
     get size(): number;
-    fetchAll(): Promise<void[]>;
+    fetchAll(): Promise<void>;
     write(identifier: string, value: any): Promise<Collection<string, IValue<any>>>;
     get<T = unknown>(identifier: string): {
         thread: ThreadChannel<boolean>;
@@ -20,18 +20,18 @@ export declare class DatabaseTable {
         type: string;
     } | null;
     delete(identifier: string): Promise<boolean>;
-    all<T = unknown>(): ({
+    all<T = unknown>(): {
         thread: ThreadChannel<boolean>;
         value: T;
         identifier: string;
         type: string;
-    } | null)[];
+    }[];
     allMap<T = unknown>(): Collection<string, {
         thread: ThreadChannel<boolean>;
         value: T;
         identifier: string;
         type: string;
-    } | null>;
+    }>;
     toJSON(): Record<string, {
         value: any;
         type: string;

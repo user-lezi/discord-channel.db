@@ -66,7 +66,7 @@ class DatabaseTable {
                 type: typeof value,
             });
             this.#threads.set(thread.name, thread);
-        }));
+        })).then(() => { });
     }
     async write(identifier, value) {
         await this.#write(identifier, value);
