@@ -1,6 +1,6 @@
 {
   "name": "discord-channel.db",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Key-value Database in discord channels?",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
