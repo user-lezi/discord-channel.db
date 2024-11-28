@@ -170,10 +170,48 @@ export class Database<Tables extends string = "main"> {
   }
 
   public toJSON() {
-    let json = {} as Record<Tables, ReturnType<DatabaseTable["toJSON"]>>;
+    let tables = {} as Record<Tables, ReturnType<DatabaseTable["toJSON"]>>;
     this.#tables.forEach(
-      (table, tableName) => (json[tableName] = table.toJSON()),
+      (table, tableName) => (tables[tableName] = table.toJSON()),
     );
-    return json;
+    return {
+      tables,
+      categoryID: this.options.categoryID,
+      tableNames: this.tableNames,
+    };
+  }
+
+  public static fromJSON(client: Client, json: ReturnType<Database["toJSON"]>) {
+    let db = new Database(
+      {
+        client,
+        categoryID: json.categoryID,
+      },
+      json.tableNames,
+    );
+    return db
+      .connect(false)
+      .then(() => db.wipe())
+      .then(() => {
+        let promises = [] as any[];
+        for (const tableName of json.tableNames) {
+          let values = json.tables[tableName];
+          promises.push(
+            db.bulkSet(
+              ...Object.entries(values).map(
+                (x) =>
+                  ({
+                    table: tableName,
+                    name: x[0],
+                    value:
+                      x[1].type == "bigint" ? BigInt(x[1].value) : x[1].value,
+                  }) as IBulkSetOptions<any>,
+              ),
+            ),
+          );
+        }
+        return Promise.all(promises);
+      })
+      .then(() => db);
   }
 }

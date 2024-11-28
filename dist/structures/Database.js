@@ -134,9 +134,35 @@ class Database {
         return this.#tables.mapValues((table) => table.allMap());
     }
     toJSON() {
-        let json = {};
-        this.#tables.forEach((table, tableName) => (json[tableName] = table.toJSON()));
-        return json;
+        let tables = {};
+        this.#tables.forEach((table, tableName) => (tables[tableName] = table.toJSON()));
+        return {
+            tables,
+            categoryID: this.options.categoryID,
+            tableNames: this.tableNames,
+        };
+    }
+    static fromJSON(client, json) {
+        let db = new Database({
+            client,
+            categoryID: json.categoryID,
+        }, json.tableNames);
+        return db
+            .connect(false)
+            .then(() => db.wipe())
+            .then(() => {
+            let promises = [];
+            for (const tableName of json.tableNames) {
+                let values = json.tables[tableName];
+                promises.push(db.bulkSet(...Object.entries(values).map((x) => ({
+                    table: tableName,
+                    name: x[0],
+                    value: x[1].type == "bigint" ? BigInt(x[1].value) : x[1].value,
+                }))));
+            }
+            return Promise.all(promises);
+        })
+            .then(() => db);
     }
 }
 exports.Database = Database;

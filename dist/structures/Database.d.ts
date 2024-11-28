@@ -63,10 +63,15 @@ export declare class Database<Tables extends string = "main"> {
         identifier: string;
         type: string;
     }>>;
-    toJSON(): Record<Tables, Record<string, {
-        value: any;
-        type: string;
-        threadId: string;
-    }>>;
+    toJSON(): {
+        tables: Record<Tables, Record<string, {
+            value: any;
+            type: string;
+            threadId: string;
+        }>>;
+        categoryID: string;
+        tableNames: Tables[];
+    };
+    static fromJSON(client: Client, json: ReturnType<Database["toJSON"]>): Promise<Database<"main">>;
 }
 //# sourceMappingURL=Database.d.ts.map
