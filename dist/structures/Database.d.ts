@@ -63,5 +63,10 @@ export declare class Database<Tables extends string = "main"> {
         identifier: string;
         type: string;
     } | null>>;
+    toJSON(): Record<Tables, Record<string, {
+        value: any;
+        type: string;
+        threadId: string;
+    }>>;
 }
 //# sourceMappingURL=Database.d.ts.map

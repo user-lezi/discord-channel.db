@@ -95,6 +95,19 @@ class DatabaseTable {
     allMap() {
         return this.#cache.mapValues((v) => this.get(v.identifier));
     }
+    toJSON() {
+        let json = {};
+        this.#cache.forEach((element) => {
+            json[element.identifier] = {
+                value: typeof element.value == "bigint"
+                    ? element.value.toString()
+                    : element.value,
+                type: element.type,
+                threadId: this.#threads.get(element.identifier).id,
+            };
+        });
+        return json;
+    }
 }
 exports.DatabaseTable = DatabaseTable;
 //# sourceMappingURL=DatabaseTable.js.map

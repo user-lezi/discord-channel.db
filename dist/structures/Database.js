@@ -130,6 +130,11 @@ class Database {
     allMap() {
         return this.#tables.mapValues((table) => table.allMap());
     }
+    toJSON() {
+        let json = {};
+        this.#tables.forEach((table, tableName) => (json[tableName] = table.toJSON()));
+        return json;
+    }
 }
 exports.Database = Database;
 //# sourceMappingURL=Database.js.map

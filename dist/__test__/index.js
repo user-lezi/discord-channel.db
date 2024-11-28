@@ -22,7 +22,7 @@ client.on("ready", async () => {
     console.log("Bot Online!!");
     await (0, took_1.default)("Connection", () => db.connect(false));
     await (0, took_1.default)("Fetching", () => db.fetch());
-    console.log(db.allMap());
+    console.log(db.toJSON());
 });
 client.login(process.env.token);
 //# sourceMappingURL=index.js.map

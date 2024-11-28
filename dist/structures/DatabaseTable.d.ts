@@ -32,5 +32,10 @@ export declare class DatabaseTable {
         identifier: string;
         type: string;
     } | null>;
+    toJSON(): Record<string, {
+        value: any;
+        type: string;
+        threadId: string;
+    }>;
 }
 //# sourceMappingURL=DatabaseTable.d.ts.map

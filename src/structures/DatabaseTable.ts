@@ -5,6 +5,7 @@ import {
   ThreadChannel,
 } from "discord.js";
 import { decodeValue, encodeValue, stringChunks } from "../util";
+import { threadId } from "worker_threads";
 
 export interface IValue<V = any> {
   value: V;
@@ -112,5 +113,27 @@ export class DatabaseTable {
   }
   public allMap<T = unknown>() {
     return this.#cache.mapValues((v) => this.get<T>(v.identifier));
+  }
+
+  public toJSON() {
+    let json = {} as Record<
+      string,
+      {
+        value: any;
+        type: string;
+        threadId: string;
+      }
+    >;
+    this.#cache.forEach((element) => {
+      json[element.identifier] = {
+        value:
+          typeof element.value == "bigint"
+            ? element.value.toString()
+            : element.value,
+        type: element.type,
+        threadId: this.#threads.get(element.identifier)!.id,
+      };
+    });
+    return json;
   }
 }

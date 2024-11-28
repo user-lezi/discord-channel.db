@@ -164,4 +164,12 @@ export class Database<Tables extends string = "main"> {
   public allMap<T = unknown>() {
     return this.#tables.mapValues((table) => table.allMap<T>());
   }
+
+  public toJSON() {
+    let json = {} as Record<Tables, ReturnType<DatabaseTable["toJSON"]>>;
+    this.#tables.forEach(
+      (table, tableName) => (json[tableName] = table.toJSON()),
+    );
+    return json;
+  }
 }

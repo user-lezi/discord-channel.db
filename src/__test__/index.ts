@@ -39,7 +39,7 @@ client.on("ready", async () => {
   //   db.bulkDelete({ name: "smh" }, { name: "f" }),
   // );
   //await took("Wipe", () => db.wipe());
-  console.log(db.allMap());
+  console.log(db.toJSON());
   //console.log(db.size, db.sizeMap);
 });
 
